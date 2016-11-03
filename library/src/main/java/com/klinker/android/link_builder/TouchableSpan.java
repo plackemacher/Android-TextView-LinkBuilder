@@ -27,6 +27,7 @@ public class TouchableSpan extends TouchableBaseSpan {
 
     private final Link link;
     private int textColor;
+    private int textColorHighlight;
 
     /**
      * Construct new TouchableSpan using the link
@@ -36,9 +37,15 @@ public class TouchableSpan extends TouchableBaseSpan {
         this.link = link;
 
         if (link.getTextColor() == 0) {
-            this.textColor = getDefaultColor(context);
+            this.textColor = getDefaultColor(context, R.styleable.LinkBuilder_defaultLinkColor);
         } else {
             this.textColor = link.getTextColor();
+        }
+
+        if (link.getTextColorHighlight() == 0) {
+            this.textColorHighlight = getDefaultColor(context, R.styleable.LinkBuilder_defaultLinkHighlightColor);
+        } else {
+            this.textColorHighlight = link.getTextColorHighlight();
         }
     }
 
@@ -47,9 +54,9 @@ public class TouchableSpan extends TouchableBaseSpan {
      * @param context activity
      * @return color as an integer
      */
-    private int getDefaultColor(Context context) {
+    private int getDefaultColor(Context context, int index) {
         TypedArray array = obtainStyledAttrsFromThemeAttr(context, R.attr.linkBuilderStyle, R.styleable.LinkBuilder);
-        int color = array.getColor(R.styleable.LinkBuilder_defaultLinkColor, Link.DEFAULT_COLOR);
+        int color = array.getColor(index, Link.DEFAULT_COLOR);
         array.recycle();
 
         return color;
@@ -103,7 +110,7 @@ public class TouchableSpan extends TouchableBaseSpan {
 
         ds.setUnderlineText(link.isUnderlined());
         ds.setFakeBoldText(link.isBold());
-        ds.setColor(textColor);
+        ds.setColor(touched ? textColorHighlight : textColor);
         ds.bgColor = touched ? adjustAlpha(textColor, link.getHighlightAlpha()) : Color.TRANSPARENT;
         if(link.getTypeface() != null)
             ds.setTypeface(link.getTypeface());
