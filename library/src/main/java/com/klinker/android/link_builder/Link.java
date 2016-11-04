@@ -29,7 +29,7 @@ public class Link {
     private String appendedText;
     private Pattern pattern;
     private int textColor = 0;
-    private int textColorHighlight = 0;
+    private int textColorOfHighlightedLink = 0;
     private float highlightAlpha = DEFAULT_ALPHA;
     private boolean underlined = true;
     private boolean bold = false;
@@ -50,7 +50,7 @@ public class Link {
         this.clickListener = link.getClickListener();
         this.longClickListener = link.getLongClickListener();
         this.textColor = link.getTextColor();
-        this.textColorHighlight = link.getTextColorHighlight();
+        this.textColorOfHighlightedLink = link.getTextColorOfHighlightedLink();
         this.highlightAlpha = link.getHighlightAlpha();
         this.underlined = link.isUnderlined();
         this.bold = link.isBold();
@@ -149,11 +149,11 @@ public class Link {
 
     /**
      * Specify the text color for the linked text when the link is pressed.
-     * @param colorHighlight as an integer (not resource).
+     * @param colorOfHighlightedLink as an integer (not resource).
      * @return the current link object.
      */
-    public Link setTextColorHighlight(int colorHighlight) {
-        this.textColorHighlight = colorHighlight;
+    public Link setTextColorOfHighlightedLink(int colorOfHighlightedLink) {
+        this.textColorOfHighlightedLink = colorOfHighlightedLink;
         return this;
     }
 
@@ -212,8 +212,8 @@ public class Link {
         return textColor;
     }
 
-    public int getTextColorHighlight() {
-        return textColorHighlight;
+    public int getTextColorOfHighlightedLink() {
+        return textColorOfHighlightedLink;
     }
 
     public float getHighlightAlpha() {
